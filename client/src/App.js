@@ -4,6 +4,8 @@ import './App.css';
 import Home from './Home';
 import NavBar from './Navbar';
 import { UserProvider } from './context/user';
+import Signup from './Signup';
+import Login from './Login';
 
 function App(props) {
 
