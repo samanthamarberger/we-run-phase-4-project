@@ -5,7 +5,8 @@ class UsersController < ApplicationController
     end
 
     def show
-        binding.pry
+        user = User.find_by(id: sessions[:user_id])
+        render json: user
     end
 
 end
