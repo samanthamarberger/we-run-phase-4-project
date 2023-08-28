@@ -5,3 +5,56 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Create some users
+user1 = User.create!(
+  username: 'user1',
+  email: 'user1@example.com',
+  password: 'password',
+  bio: 'I love trail running!',
+  user_photo: 'user1.jpg'
+)
+
+user2 = User.create!(
+  username: 'user2',
+  email: 'user2@example.com',
+  password: 'password',
+  bio: 'Trail runner and nature enthusiast.',
+  user_photo: 'user2.jpg'
+)
+
+# Create some trails
+trail1 = Trail.create!(
+  trail_name: 'Trail 1',
+  description: 'A scenic trail with beautiful views.',
+  location: 'Mountain Valley',
+  difficulty: 3,
+  trail_image: 'trail1.jpg'
+)
+
+trail2 = Trail.create!(
+  trail_name: 'Trail 2',
+  description: 'A challenging trail for experienced runners.',
+  location: 'Forest Hills',
+  difficulty: 5,
+  trail_image: 'trail2.jpg'
+)
+
+# Create some reviews
+Review.create!(
+  username: user1.username,
+  rating: 4,
+  review: 'Great trail, loved the views!',
+  trail: trail1,
+  user: user1
+)
+
+Review.create!(
+  username: user2.username,
+  rating: 5,
+  review: 'Tough trail but totally worth it!',
+  trail: trail2,
+  user: user2
+)
+
+puts 'Seed data created successfully!'

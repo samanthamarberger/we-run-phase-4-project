@@ -5,5 +5,6 @@ class User < ApplicationRecord
     has_many :trails, through: :reviews
 
     validates :username, :email, presence: true, uniqueness: true
-    validates :password, :password_confirmation, presence: true
+    validates :password, presence: true
+    # validates :password_confirmation, presence: true
 end
