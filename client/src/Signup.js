@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { UserContext } from './context/user'
 
 function Signup() {
-    const [username, setUsename] = useState("")
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
@@ -30,6 +30,7 @@ function Signup() {
             if (!user.errors){
                 signup(user)
                 // history.pushState('/')
+                clearInputs
             }
             else {
                 setPassword("")
@@ -40,6 +41,15 @@ function Signup() {
         })
     }
 
+    function clearInputs() {
+        setUsername("")
+        setEmail("")
+        setPassword("")
+        setPasswordConfirmation("")
+        setBio("")
+        setPhoto("")
+    }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -48,7 +58,7 @@ function Signup() {
                     type="text"
                     id="Username"
                     value={username}
-                    onChange={(e) => setUsename(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                  /><br/>
                  <label>Email: </label>
                 <input
