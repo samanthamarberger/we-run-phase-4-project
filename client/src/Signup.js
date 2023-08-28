@@ -13,6 +13,31 @@ function Signup() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        fetch('/signup', {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password,
+                password_confirmation: passwordConfirmation,
+                bio: bio,
+                user_photo: photo
+            })
+        }) 
+        .then(r => r.json())
+        .then(user => {
+            if (!user.errors){
+                signup(user)
+                // history.pushState('/')
+            }
+            else {
+                setPassword("")
+                setPasswordConfirmation("")
+                const errorLis = user.errors.map(e => <li>(e)</li>)
+                setErrorList(errorLis)
+            }
+        })
     }
 
     return (
