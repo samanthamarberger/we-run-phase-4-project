@@ -1,22 +1,39 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { UserContext } from "./context/user";
 
 function NavBar() {
-    return (
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/signup">Signup</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
-      );    
+    const{user, logout} = useContext(UserContext)
+
+    const logoutUser = () => {
+        fetch('/logout')
+        .then(() => {
+            logout()
+        })
+    }
+
+    if (user){
+        return (
+            <div>
+                <h1>Hello {user.username}</h1>
+                <br/>
+                <button onClick={logoutUser}>Logout</button>
+            </div>
+        );   
+    } 
+    else {
+        return (
+            <div>
+                <NavLink to='/login'>
+                    <button>Login</button>
+                </NavLink>
+                <NavLink to='/signup'>
+                    <button>Signup</button>
+                </NavLink>
+            </div>
+        )
+    }
 }
+
 
 export default NavBar;
