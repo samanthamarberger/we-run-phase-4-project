@@ -10,7 +10,7 @@ function Home() {
     else {
         return (
             <div>
-                <h1>{user.username}'s Home</h1>
+                <h1> Home</h1>
             </div>
         )
     }

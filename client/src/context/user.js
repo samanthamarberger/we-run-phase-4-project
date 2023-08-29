@@ -19,7 +19,7 @@ function UserProvider({ children }) {
     }
 
     const logout = () => {
-
+        setUser(null)
     }
 
     const signup = () => {
