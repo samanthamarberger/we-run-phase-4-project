@@ -30,7 +30,7 @@ function Signup() {
             if (!user.errors){
                 signup(user)
                 // history.pushState('/')
-                clearInputs
+                clearInputs()
             }
             else {
                 setPassword("")
