@@ -39,7 +39,6 @@ function UserProvider({ children }) {
         })
         .then(r => r.json())
         .then(trail => {
-            // check for errors!!!
             setTrails([...trails, trail])
         })
     }
