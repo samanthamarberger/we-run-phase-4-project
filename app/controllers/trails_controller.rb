@@ -21,6 +21,7 @@ class TrailsController < ApplicationController
             render json: trail, status: :ok
         else
             render json: { errors: "Not found" }, status: :unauthorized
+        end
     end
 
     def update
