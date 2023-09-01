@@ -5,7 +5,7 @@ import { UserContext } from './context/user'
 function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [errors, setErrors] = useState("")
+    const [errorList, setErrorList] = useState([])
     const { login, loggedIn } = useContext(UserContext);
     const navigate = useNavigate()
 
@@ -21,8 +21,16 @@ function Login() {
         })
             .then(r => r.json())
             .then(user => {
-                login(user)
-                navigate('/')
+                if(!user.errors){
+                    login(user)
+                    navigate('/')
+                }
+                else {
+                    setUsername("")
+                    setPassword("")
+                    const errorLis = user.errors.map(e => <li>{e}</li>)
+                    setErrorList(errorLis)
+                }
             })
     }
 
@@ -47,7 +55,7 @@ function Login() {
                     <input type="submit" />
                 </form>
                 <ul>
-                    <h3>{errors}</h3>
+                    {errorList}
                 </ul>
             </div>
         )
