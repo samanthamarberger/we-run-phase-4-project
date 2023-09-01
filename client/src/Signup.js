@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { UserContext } from './context/user'
 
 function Signup() {
@@ -10,6 +11,7 @@ function Signup() {
     const [photo, setPhoto] = useState("")
     const [errorList, setErrorList] = useState([])
     const {signup} = useContext(UserContext)
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -29,8 +31,7 @@ function Signup() {
         .then(user => {
             if (!user.errors){
                 signup(user)
-                // history.pushState('/')
-                clearInputs()
+                navigate('/')
             }
             else {
                 setPassword("")
@@ -41,14 +42,14 @@ function Signup() {
         })
     }
 
-    function clearInputs() {
-        setUsername("")
-        setEmail("")
-        setPassword("")
-        setPasswordConfirmation("")
-        setBio("")
-        setPhoto("")
-    }
+    // function clearInputs() {
+    //     setUsername("")
+    //     setEmail("")
+    //     setPassword("")
+    //     setPasswordConfirmation("")
+    //     setBio("")
+    //     setPhoto("")
+    // }
 
     return (
         <div>

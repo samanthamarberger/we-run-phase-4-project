@@ -7,20 +7,24 @@ function NavBar() {
     const navigate = useNavigate()
 
     const logoutUser = () => {
-        fetch('/logout')
+        fetch('/logout', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
         .then(() => {
             logout()
+            navigate('/')
         })
     }
 
-    if (user){
+    if (loggedIn){
         return (
             <div>
                 <h1>Hello {user.username}</h1>
-                <br/>
                 <button onClick={logoutUser}>Logout</button>
+                <hr/>
             </div>
-        );   
+        )
     } 
     else {
         return (
@@ -31,6 +35,7 @@ function NavBar() {
                 <NavLink to='/signup'>
                     <button>Signup</button>
                 </NavLink>
+                <hr/>
             </div>
         )
     }
