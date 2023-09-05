@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "./context/user";
 
 
-function TrailForm({ addTrail }) {
+function TrailForm({ addTrailFlag }) {
 
     const [trailName, setTrailName] = useState("")
     const [description, setDescription] = useState("")
@@ -20,45 +20,47 @@ function TrailForm({ addTrail }) {
             difficulty: difficulty,
             trail_image: trailPhoto
         })
+        addTrailFlag()
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <lable>Trail Name:</lable>
+            <label>Trail Name:</label>
             <input 
                 type="text"
                 id="trail_name"
                 value={trailName}
                 onChange={(e) => setTrailName(e.target.value)}
             /> <br/>
-            <lable>Description:</lable>
+            <label>Description:</label>
             <input 
                 type="text"
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             /> <br/>
-            <lable>Location:</lable>
+            <label>Location:</label>
             <input 
                 type="text"
                 id="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
             /> <br/>
-            <lable>Difficulty out of 5:</lable>
+            <label>Difficulty out of 5:</label>
             <input 
                 type="integer"
                 id="difficulty"
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
             /> <br/>
-            <lable>Trail Photo:</lable>
+            <label>Trail Photo:</label>
             <input 
                 type="text"
                 id="trail_photo"
                 value={trailPhoto}
                 onChange={(e) => setTrailPhoto(e.target.value)}
             /> <br/>
+            <button type="submit">Submit</button>
         </form>
     )
 }
