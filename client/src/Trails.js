@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react"
 import { Route, useParams } from "react-router-dom"
 import { UserContext } from "./context/user"
 import TrailForm from "./TrailForm"
+import TrailLink from "./TrailLink"
 
 function Trails() {
 
@@ -14,7 +15,7 @@ function Trails() {
     }
 
     if (loggedIn) {
-        const trailsList = trails.map(trail => <li>{trail.trailName}</li>)
+        const trailsList = trails.map(trail =><TrailLink key={trail.id} trail={trail}/> )
         return (
             <div>
                 <h3> TRAILS: </h3>

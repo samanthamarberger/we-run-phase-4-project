@@ -12,13 +12,13 @@ function UserProvider({ children }) {
         setUser(userData)
         fetchTrails()
         setLoggedIn(true)
-        document.cookie = 'loggedIn=true; path=/'
+        // document.cookie = 'loggedIn=true; path=/'
     }
 
     const logout = () => {
         setUser({})
         setLoggedIn(false)
-        document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+        // document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     }
 
     const signup = (userData) => {
@@ -28,22 +28,25 @@ function UserProvider({ children }) {
     }
 
     useEffect(() => {
-        const loggedInCookie = document.cookie.includes('loggedIn=true')
-        if (loggedInCookie) {
-            setLoggedIn(true)
-        }
-        else {
-            setLoggedIn(false)
-        }
+        // const loggedInCookie = document.cookie.includes('loggedIn=true')
+        // if (loggedInCookie) {
+        //     setLoggedIn(true)
+        // }
+        // else {
+        //     setLoggedIn(false)
+        // }
 
-        if (loggedInCookie) {
+        // if (loggedInCookie) {
+            
             fetch('/me')
-                .then(r => r.json())
+                .then(r => {console.log(r) 
+                    return r.json()})
+                // if then to control errors 
                 .then((userData) => {
                     setUser(userData)
                     fetchTrails()
                 })
-        }
+        // }
     }, [])
 
     const fetchTrails = () => {
