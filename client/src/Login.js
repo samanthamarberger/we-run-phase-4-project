@@ -6,7 +6,7 @@ function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errorList, setErrorList] = useState([])
-    const { login, loggedIn } = useContext(UserContext);
+    const { login } = useContext(UserContext);
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
@@ -34,7 +34,6 @@ function Login() {
             })
     }
 
-    // if (!loggedIn) {
         return (
             <div>
                 <form onSubmit={handleSubmit}>
@@ -59,7 +58,6 @@ function Login() {
                 </ul>
             </div>
         )
-    // }
 }
 
 export default Login
