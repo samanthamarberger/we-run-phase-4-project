@@ -6,7 +6,7 @@ import TrailLink from "./TrailLink"
 
 function Trails() {
 
-    const { trails, loggedIn } = useContext(UserContext)
+    const { trails, loggedIn, errorList } = useContext(UserContext)
     const [formFlag, setFormFlag] = useState(false)
     const params = useParams()
 
@@ -26,6 +26,9 @@ function Trails() {
                     <TrailForm addTrailFlag={addTrailFlag}/> :
                     <button onClick={() => setFormFlag(true)}>Add Trail</button>
                 }
+                <ul>
+                    {errorList}
+                </ul>
             </div>
         )
     }

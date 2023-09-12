@@ -13,6 +13,7 @@ function TrailForm({ addTrailFlag }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
         addTrail({
             trail_name: trailName,
             description: description,
@@ -24,44 +25,46 @@ function TrailForm({ addTrailFlag }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Trail Name:</label>
-            <input 
-                type="text"
-                id="trail_name"
-                value={trailName}
-                onChange={(e) => setTrailName(e.target.value)}
-            /> <br/>
-            <label>Description:</label>
-            <input 
-                type="text"
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            /> <br/>
-            <label>Location:</label>
-            <input 
-                type="text"
-                id="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-            /> <br/>
-            <label>Difficulty out of 5:</label>
-            <input 
-                type="integer"
-                id="difficulty"
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
-            /> <br/>
-            <label>Trail Photo:</label>
-            <input 
-                type="text"
-                id="trail_photo"
-                value={trailPhoto}
-                onChange={(e) => setTrailPhoto(e.target.value)}
-            /> <br/>
-            <button type="submit">Submit</button>
-        </form>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <label>Trail Name:</label>
+                <input
+                    type="text"
+                    id="trail_name"
+                    value={trailName}
+                    onChange={(e) => setTrailName(e.target.value)}
+                /> <br />
+                <label>Description:</label>
+                <input
+                    type="text"
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                /> <br />
+                <label>Location:</label>
+                <input
+                    type="text"
+                    id="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                /> <br />
+                <label>Difficulty out of 5:</label>
+                <input
+                    type="number"
+                    id="difficulty"
+                    value={difficulty}
+                    onChange={(e) => setDifficulty(e.target.value)}
+                /> <br />
+                <label>Trail Photo:</label>
+                <input
+                    type="text"
+                    id="trail_photo"
+                    value={trailPhoto}
+                    onChange={(e) => setTrailPhoto(e.target.value)}
+                /> <br />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     )
 }
 

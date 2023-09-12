@@ -7,18 +7,17 @@ function UserProvider({ children }) {
     const [user, setUser] = useState({})
     const [loggedIn, setLoggedIn] = useState(false)
     const [trails, setTrails] = useState([])
+    const [errorList, setErrorList] = useState([])
 
     const login = (userData) => {
         setUser(userData)
         fetchTrails()
         setLoggedIn(true)
-        // document.cookie = 'loggedIn=true; path=/'
     }
 
     const logout = () => {
         setUser({})
         setLoggedIn(false)
-        // document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     }
 
     const signup = (userData) => {
@@ -28,29 +27,27 @@ function UserProvider({ children }) {
     }
 
     useEffect(() => {
-        // const loggedInCookie = document.cookie.includes('loggedIn=true')
-        // if (loggedInCookie) {
-        //     setLoggedIn(true)
-        // }
-        // else {
-        //     setLoggedIn(false)
-        // }
-
-        // if (loggedInCookie) {
-            
-            fetch('/me')
-                .then(r => {console.log(r) 
-                    return r.json()})
-                // if then to control errors 
-                .then((userData) => {
+        fetch('/me')
+            .then(r => {
+                console.log(r)
+                return r.json()
+            })
+            //What would these errors be coming from
+            .then((userData) => {
+                if (!userData.errors) {
                     setUser(userData)
                     fetchTrails()
-                })
-        // }
+                }
+                else {
+                    console.log(userData.errors)   
+                }
+            })
+
     }, [])
 
     const fetchTrails = () => {
         fetch('/trails')
+        //would this one need error handling since its taken care of in the Trails.js file?
             .then(r => r.json())
             .then(trails => {
                 setTrails(trails)
@@ -65,12 +62,19 @@ function UserProvider({ children }) {
         })
             .then(r => r.json())
             .then(trail => {
-                setTrails([...trails, trail])
+                if (!trail.errors) {
+                    setTrails([...trails, trail])
+                    setErrorList(null)
+                }
+                else {
+                    const errorLis = trail.errors.map((e, index) => <li key={index}>{e}</li>)
+                    setErrorList(errorLis)
+                }
             })
     }
 
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, addTrail }}>
+        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, addTrail, errorList }}>
             {children}
         </UserContext.Provider>
     );

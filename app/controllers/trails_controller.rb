@@ -8,7 +8,7 @@ class TrailsController < ApplicationController
     end
 
     def create
-        trail = current_user.trails.create(trail_params)
+        trail = Trail.create(trail_params)
         if trail.valid?
             render json: trail, status: :created
         else
