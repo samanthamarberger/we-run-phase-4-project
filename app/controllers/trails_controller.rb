@@ -1,8 +1,9 @@
 class TrailsController < ApplicationController
     before_action :authorize
 
+    #make these based off of the TRAILS not the user because they are available to all to see
     def index 
-        trails = current_user.trails
+        trails = Trail.all
         render json: trails, status: :ok
     end
 

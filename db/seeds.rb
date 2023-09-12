@@ -29,7 +29,7 @@ trail1 = Trail.create!(
   description: 'A scenic trail with beautiful views.',
   location: 'Mountain Valley',
   difficulty: 3,
-  trail_image: 'trail1.jpg'
+  trail_image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuBauby6zmXL1bokmt1M9ay3sIo9Fqdhsp8pSXvC6U&s'
 )
 
 trail2 = Trail.create!(
@@ -37,7 +37,7 @@ trail2 = Trail.create!(
   description: 'A challenging trail for experienced runners.',
   location: 'Forest Hills',
   difficulty: 5,
-  trail_image: 'trail2.jpg'
+  trail_image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMLD8NKSmi2c_UTIE4XI_3ZexOGYgUTUgfKQ&usqp=CAU'
 )
 
 # Create some reviews

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-    before_action :authorize
+    # before_action :authorize
 
     # no need for index or show 
     def index 
