@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "./context/user"
 import { useParams } from "react-router-dom";
 import Review from "./Review";
 
@@ -7,6 +8,7 @@ function Trail() {
         reviews: []
     })
     const params = useParams()
+    const { loggedIn } = useContext(UserContext)
 
     useEffect(() => {
         fetch(`/trails/${params.id}`)
@@ -16,20 +18,28 @@ function Trail() {
 
     const reviews = trail.reviews.map((review) => (<Review key={review.id} review={review}/>))
 
-    return (
-        <div>
-            <br />
-            <h2>{trail.trail_name}</h2>
-            <img src={trail.trail_image} alt={trail.trail_name}/>
-            <p>{trail.description}</p>
-            <p>{trail.location}</p>
-            <p>Difficulty: {trail.difficulty}/5</p>
-            <hr/>
-            <h3>Reviews:</h3>
-            {reviews}
-            <hr />
-        </div>
-    )
+    if (loggedIn) {
+        return (
+            <div>
+                <br />
+                <h2>{trail.trail_name}</h2>
+                <img src={trail.trail_image} alt={trail.trail_name}/>
+                <p>{trail.description}</p>
+                <p>{trail.location}</p>
+                <p>Difficulty: {trail.difficulty}/5</p>
+                <hr/>
+                <h3>Reviews:</h3>
+                {reviews}
+                <hr />
+            </div>
+        )
+    }
+    else {
+        return (
+            <h3> Not Authorized - Please Signup or Login </h3>
+        )
+    }
 }
+
 
 export default Trail

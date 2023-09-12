@@ -38,6 +38,9 @@ function NavBar() {
                 <NavLink to='/signup'>
                     <button>Signup</button>
                 </NavLink>
+                <NavLink to='/'>
+                    <button>Home</button>
+                </NavLink>
                 <hr/>
             </div>
         )
