@@ -28,7 +28,7 @@ function Login() {
                 else {
                     setUsername("")
                     setPassword("")
-                    const errorLis = user.errors.map(e => <li>{e}</li>)
+                    const errorLis = user.errors.map((e, index) => <li key={index}>{e}</li>)
                     setErrorList(errorLis)
                 }
             })
