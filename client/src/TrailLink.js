@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 function TrailLink({ trail }) {
 
     return (
-        <div>
-            <h3>{trail.name}</h3>
+        <Link className="link-name" to={`/trails/${trail.id}`}>
+            <h3>{trail.trail_name}</h3>
             <img src={trail.trail_image} alt={trail.name}/>
-        </div>
+        </Link>
     )
 }
 

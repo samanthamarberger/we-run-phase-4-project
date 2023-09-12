@@ -47,7 +47,6 @@ trail2 = Trail.create!(
 
 # Create some reviews
 Review.create!(
-  username: user1.username,
   rating: 4,
   review: 'Great trail, loved the views!',
   trail: trail1,
@@ -55,7 +54,6 @@ Review.create!(
 )
 
 Review.create!(
-  username: user2.username,
   rating: 5,
   review: 'Tough trail but totally worth it!',
   trail: trail2,

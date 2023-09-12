@@ -17,7 +17,7 @@ class TrailsController < ApplicationController
     end
 
     def show
-        trail = current_user.trails.find_by(id: params[:id])
+        trail = Trail.find_by(id: params[:id])
         if trail
             render json: trail, status: :ok
         else
