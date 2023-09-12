@@ -1,12 +1,6 @@
 class ReviewsController < ApplicationController
     # before_action :authorize
 
-    # no need for index or show 
-    def index 
-        reviews = current_user.reviews
-        render json: reviews, status: :ok
-    end
-
     def create
         review = current_user.reviews.create(review_params)
         if review.valid?
@@ -14,9 +8,6 @@ class ReviewsController < ApplicationController
         else
             render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
         end
-    end
-
-    def show
     end
 
     def update
