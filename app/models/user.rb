@@ -9,4 +9,5 @@ class User < ApplicationRecord
 
     def password_required?
         password.present? || password_confirmation.present?
+    end
 end

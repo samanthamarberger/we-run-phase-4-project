@@ -1,11 +1,11 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :username, :rating, :review, :trail_id, :user_id
+  attributes :id, :rating, :review, :trail_id, :user_id #, :username
 
   #Make custom username method and remove username from migration in review
 
-  def username
-    byebug
-  end
+  # def username
+  #   console.log(self)
+  # end
 
   belongs_to :user
   belongs_to :trail

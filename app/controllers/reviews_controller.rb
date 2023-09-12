@@ -8,6 +8,12 @@ class ReviewsController < ApplicationController
     end
 
     def create
+        review = current_user.reviews.create(review_params)
+        if review.valid?
+            render json: review, status: :created
+        else
+            render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     def show
@@ -26,7 +32,7 @@ class ReviewsController < ApplicationController
     end
 
     def review_params
-        params.permit(:username, :rating, :review)
+        params.permit(:rating, :review)
     end
 
     def authorize
