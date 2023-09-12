@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
-  get '/trails/:id', to: 'trails#index'
+  get '/trails/:id', to: 'trails#show'
 
   resources :reviews
   resources :trails

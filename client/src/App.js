@@ -7,6 +7,7 @@ import { UserProvider } from './context/user';
 import Signup from './Signup';
 import Login from './Login';
 import Trails from './Trails';
+import Trail from './Trail';
 
 function App(props) {
 
@@ -19,6 +20,7 @@ function App(props) {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/trails" element={<Trails />} />
+          <Route exact path="/trails/:id" element={<Trail />} />
         </Routes>
       </UserProvider>
     </div>
