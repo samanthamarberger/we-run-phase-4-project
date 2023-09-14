@@ -7,14 +7,29 @@ function Trail() {
     const [trail, setTrail] = useState({
         reviews: []
     })
+
+    const [reviewFormFlag, setReviewFormFlag] = useState(false)
     const params = useParams()
-    const { loggedIn } = useContext(UserContext)
+    const { loggedIn, trails, setTrails } = useContext(UserContext)
 
     useEffect(() => {
         fetch(`/trails/${params.id}`)
         .then((r) => r.json())
         .then ((trail) => setTrail(trail))
     }, [])
+
+    function deleteTrail(id) {
+        fetch(`/trails/${id}`,{
+            method: "DELETE",
+        })
+        .then((r) => r.json())
+        .then(() => frontEndDelete(id))
+    }
+
+    function frontEndDelete(id) {
+        const updatedTrails = trails.filter((trail) => trail.id !== id)
+        setTrails(...updatedTrails)
+    }
 
     const reviews = trail.reviews.map((review) => (<Review key={review.id} review={review}/>))
 
@@ -27,6 +42,7 @@ function Trail() {
                 <p>{trail.description}</p>
                 <p>{trail.location}</p>
                 <p>Difficulty: {trail.difficulty}/5</p>
+                <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
                 <hr/>
                 <h3>Reviews:</h3>
                 {reviews}

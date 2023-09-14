@@ -36,7 +36,7 @@ class TrailsController < ApplicationController
     end
 
     def destroy
-        trail = trail.find_by(id: params[:id])
+        trail = Trail.find_by(id: params[:id])
         trail.destroy
         head :no_content
     end

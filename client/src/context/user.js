@@ -28,15 +28,12 @@ function UserProvider({ children }) {
 
     useEffect(() => {
         fetch('/me')
-            .then(r => {
-                console.log(r)
-                return r.json()
-            })
-            //What would these errors be coming from
+            .then(r => r.json())
             .then((userData) => {
                 if (!userData.errors) {
                     setUser(userData)
                     fetchTrails()
+                    setLoggedIn(true)
                 }
                 else {
                     console.log(userData.errors)   
@@ -74,7 +71,7 @@ function UserProvider({ children }) {
     }
 
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, addTrail, errorList }}>
+        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, setTrails, addTrail, errorList }}>
             {children}
         </UserContext.Provider>
     );
