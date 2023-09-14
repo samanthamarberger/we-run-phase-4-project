@@ -21,7 +21,7 @@ class TrailsController < ApplicationController
         if trail
             render json: trail, status: :ok
         else
-            render json: { errors: "Not found" }, status: :unauthorized
+            render json: { errors: "Not found" }, status: :not_found
         end
     end
 
@@ -29,7 +29,7 @@ class TrailsController < ApplicationController
         trail = Trail.find_by(id: params[:id])
         trail.update(trail_params)
         if trail.valid?
-            render json: trail, status: :updated
+            render json: trail, status: :accepted
         else
             render json: { errors: trail.errors.full_messages }, status: :unprocessable_entity
         end

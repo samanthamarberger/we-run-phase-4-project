@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/me', to: 'users#show'
   get '/trails/:id', to: 'trails#show'
 
+  # add the only keywords
   resources :reviews
   resources :trails
   
