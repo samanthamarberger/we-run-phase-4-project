@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "./context/user"
 import { useParams } from "react-router-dom";
-import Review from "./Review";
+import Reviews from "./Reviews";
 
 function Trail() {
     const [trail, setTrail] = useState({
@@ -10,7 +10,6 @@ function Trail() {
 
     const params = useParams()
     const { loggedIn, trails, setTrails } = useContext(UserContext)
-    // const [reviewFormFlag, setReviewFormFlag] = useState(false)
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
     //It doesn't know which trail I am talking about
@@ -113,8 +112,6 @@ function Trail() {
         setTrails(...updatedTrails)
     }
 
-    const reviews = trail.reviews.map((review) => (<Review key={review.id} review={review}/>))
-
     if (loggedIn) {
         if (trail.errors) {
             return {errorList}
@@ -132,8 +129,7 @@ function Trail() {
                     <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
                     <hr/>
                     <h3>Reviews:</h3>
-                    {reviews}
-                    <hr />
+                    <Reviews trail={trail}/>
                 </div>
             )
         }
