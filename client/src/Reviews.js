@@ -28,10 +28,9 @@ function Reviews({ trail }) {
     return (
         <div>
             {reviews}
-            <hr/>
             {(reviewFormFlag)
             ?
-            <ReviewForm onAddReview={addReview} onAddReviewFlag={addReviewFlag}/>
+            <ReviewForm onAddReview={addReview} onAddReviewFlag={addReviewFlag} trail_id={trail.id}/>
             :
             <button onClick={() => setReviewFormFlag(!reviewFormFlag)}>Add Review</button>
             }

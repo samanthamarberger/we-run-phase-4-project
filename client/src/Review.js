@@ -5,6 +5,8 @@ function Review({ review }) {
         <div>
             <h2 className='review'>{review.rating}/5</h2>
             <p>{review.review}</p>
+            <p>-{review.username}</p>
+            <hr />
         </div>
     )
 }
