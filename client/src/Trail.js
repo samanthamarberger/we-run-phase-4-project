@@ -10,7 +10,7 @@ function Trail() {
 
     const params = useParams()
     const { loggedIn, trails, setTrails } = useContext(UserContext)
-    const [reviewFormFlag, setReviewFormFlag] = useState(false)
+    // const [reviewFormFlag, setReviewFormFlag] = useState(false)
     const [editButton, setEditButton] = useState(false)
     const [tempDescription, setTempDescription] = useState(trail.description)
     const [errorList, setErrorList] = useState([])
@@ -29,6 +29,7 @@ function Trail() {
             }
             else {
                 const errorLis = trail.errors.map((e, index) => <li key={index}>{e}</li>)
+                console.log(errorLis)
                 setErrorList([errorLis])
             }
         })
@@ -77,27 +78,25 @@ function Trail() {
         fetch(`/trails/${trail.id}`, {
             method: "PATCH",
             body: JSON.stringify({
-                description: trail.description
+                //The issue is that I am setting it to what it already is by using trail.description
+                description: tempDescription
             }),
             headers: {
-                "Content-Type" : "application/json",
-            }
+                "Content-Type": "application/json",
+            },
         })
         .then((r) => r.json())
         .then((updatedTrail) => frontEndPatch(updatedTrail, trail.id))
     }
 
-    //COME BACK TO THIS> THIS AND THE UPDATE CONTROLLER ARE WHATS CAUSING THE EDIT
+
     function frontEndPatch(updatedTrail, id) {
-        setTrails(prevTrails => {
-            const updatedTrails = prevTrails.map(trail => {
-                if (trail.id === id) {
-                    return{...updatedTrail}
-                }
-                return trail
-            })
-            return{...prevTrails, updatedTrails}
-        })
+        setTrails(trails.map((trail) => {
+            if (trail.id === id) {
+                return updatedTrail
+            }
+            return trail 
+        }))
     }
 
     function deleteTrail(id) {
