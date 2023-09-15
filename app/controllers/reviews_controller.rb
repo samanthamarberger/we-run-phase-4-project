@@ -2,7 +2,9 @@ class ReviewsController < ApplicationController
     # before_action :authorize
 
     def create
-        review = current_user.reviews.create(review_params)
+        trail = Trail.find(params[:trail_id]) 
+        review = trail.reviews.create(review_params)
+        review.user = current_user
         if review.valid?
             render json: review, status: :created
         else

@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get '/trails/:id', to: 'trails#show'
 
   # add the only keywords
-  resources :reviews
-  resources :trails
+  resources :trails do
+    resources :reviews, only: [:create]
+  end
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
