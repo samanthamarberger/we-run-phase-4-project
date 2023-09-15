@@ -12,24 +12,25 @@ function Trail() {
     const { loggedIn, trails, setTrails } = useContext(UserContext)
     // const [reviewFormFlag, setReviewFormFlag] = useState(false)
     const [editButton, setEditButton] = useState(false)
-    const [tempDescription, setTempDescription] = useState(trail.description)
     const [errorList, setErrorList] = useState([])
-    // console.log(trail.description)
-    // console.log(tempDescription)
+    //It doesn't know which trail I am talking about
+    const [tempDescription, setTempDescription] = useState('')
+    
 
-    useEffect(() => {
+    useEffect(() => { 
         fetch(`/trails/${params.id}`)
         //Something is wrong with this error checking: not producing any errors
         .then((r) => r.json())
         .then ((trail) => {
-            console.log(trail.errors)
+            // console.log(trail.errors)
             if(!trail.errors){
                 setTrail(trail)
+                setTempDescription(trail.description)
                 setErrorList([])
             }
             else {
                 const errorLis = trail.errors.map((e, index) => <li key={index}>{e}</li>)
-                console.log(errorLis)
+                // console.log(errorLis)
                 setErrorList([errorLis])
             }
         })
@@ -78,7 +79,6 @@ function Trail() {
         fetch(`/trails/${trail.id}`, {
             method: "PATCH",
             body: JSON.stringify({
-                //The issue is that I am setting it to what it already is by using trail.description
                 description: tempDescription
             }),
             headers: {
@@ -91,6 +91,7 @@ function Trail() {
 
 
     function frontEndPatch(updatedTrail, id) {
+        //Isn't being updated until refresh
         setTrails(trails.map((trail) => {
             if (trail.id === id) {
                 return updatedTrail
