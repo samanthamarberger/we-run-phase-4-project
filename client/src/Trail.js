@@ -103,7 +103,7 @@ function Trail() {
 
     function frontEndPatch(updatedTrail, id) {
         //Isn't being updated until refresh
-        setTrails(trails.map((trail) => {
+        setTrails((prevTrails) => prevTrails.map((trail) => {
             if (trail.id === id) {
                 return updatedTrail
             }

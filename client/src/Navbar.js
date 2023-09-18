@@ -25,6 +25,9 @@ function NavBar() {
                 <NavLink to='/trails'>
                     <button>Trails</button>
                 </NavLink>
+                <NavLink to='/profile'>
+                    <button>User Profile</button>
+                </NavLink>
                 <hr/>
             </div>
         )
