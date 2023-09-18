@@ -1,8 +1,14 @@
 class ReviewsController < ApplicationController
     # before_action :authorize
 
+    def index 
+        reviews = current_user.reviews.all
+        render json: reviews, status: :ok
+    end
+
     def create
         review = current_user.reviews.create(review_params)
+        review.trail_id = (params[:trail_id])
         if review.valid?
             render json: review, status: :created
         else

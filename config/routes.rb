@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
   get '/trails/:id', to: 'trails#show'
-  get '/trails/:id/reviews', to: 'reviews#create'
+  # get '/trails/:id/reviews', to: 'reviews#index'
 
   # add the only keywords
   resources :trails do
-    resources :reviews, only: [:create]
+    resources :reviews, only: [ :create, :index ]
   end
   
   # Routing logic: fallback requests for React Router.
