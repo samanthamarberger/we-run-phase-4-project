@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "./context/user"
 
-function ReviewForm({ onAddReview, onAddReviewFlag, trail_id }) {
+function ReviewForm({ onAddReview, onAddReviewFlag, trail }) {
     const [rating, setRating] = useState("")
     const [review, setReview] = useState("")
-    const [trailId, setTrailId] = useState("")
-
+    
     const handleSubmit = (e) => {
         e.preventDefault()
-        setTrailId(trail_id)
-
         onAddReview({
             rating: rating,
             review: review,
-            trail_id: trailId
+            trail_id: trail.id
         })
         onAddReviewFlag()
     }
-
-    // something is wrong with the trail_id thing I am trying to do in order to get a trail id on the back end 
-    console.log(trailId)
 
     return(
         <form onSubmit={handleSubmit}>

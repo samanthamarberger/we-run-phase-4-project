@@ -3,9 +3,10 @@ import { UserContext } from "./context/user"
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
 
-function Reviews({ trail }) {
+function Reviews({ trail, onSetTrail }) {
     const { loggedIn } = useContext(UserContext)
     const [reviewFormFlag, setReviewFormFlag] = useState(false)
+    const [errorList, setErrorList] = useState(null)
 
     const reviews = trail.reviews.map((review) => (<Review key={review.id} review={review}/>))
 
@@ -14,6 +15,7 @@ function Reviews({ trail }) {
     }
 
     function addReview(newReview){
+        console.log(newReview.review)
         fetch(`/trails/${trail.id}/reviews`, {
             method: "POST",
             headers: {
@@ -22,7 +24,19 @@ function Reviews({ trail }) {
             body: JSON.stringify(newReview),
         })
         .then((r) => r.json())
-        .then((newReview) => console.log(newReview))
+        .then((newReview) => {
+            if (!newReview.errors) {
+                onSetTrail({
+                    reviews: [...trail.reviews, newReview]
+                })
+                setErrorList(null)
+            }
+            else {
+                const errorLis = newReview.errors.map((e, index) =>  <li key={index}>{e}</li> )
+                setErrorList(errorLis)
+                setReviewFormFlag(!reviewFormFlag)
+            }
+        })
     }
 
     return (
@@ -30,10 +44,11 @@ function Reviews({ trail }) {
             {reviews}
             {(reviewFormFlag)
             ?
-            <ReviewForm onAddReview={addReview} onAddReviewFlag={addReviewFlag} trail_id={trail.id}/>
+            <ReviewForm onAddReview={addReview} onAddReviewFlag={addReviewFlag} trail={trail} />
             :
             <button onClick={() => setReviewFormFlag(!reviewFormFlag)}>Add Review</button>
             }
+            {errorList}
         </div>
     )
 }

@@ -12,7 +12,6 @@ function Trail() {
     const { loggedIn, trails, setTrails } = useContext(UserContext)
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
-    //It doesn't know which trail I am talking about
     const [tempDescription, setTempDescription] = useState('')
     
 
@@ -85,6 +84,7 @@ function Trail() {
             },
         })
         .then((r) => r.json())
+        //I have to add error cheking 
         .then((updatedTrail) => frontEndPatch(updatedTrail, trail.id))
     }
 
@@ -129,7 +129,7 @@ function Trail() {
                     <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
                     <hr/>
                     <h3>Reviews:</h3>
-                    <Reviews trail={trail}/>
+                    <Reviews trail={trail} onSetTrail={setTrail}/>
                 </div>
             )
         }
