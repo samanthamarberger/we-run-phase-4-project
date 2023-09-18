@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "./context/user"
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Reviews from "./Reviews";
 
 function Trail() {
@@ -13,6 +13,7 @@ function Trail() {
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
     const [tempDescription, setTempDescription] = useState('')
+    const navigate = useNavigate()
     
 
     useEffect(() => { 
@@ -57,15 +58,18 @@ function Trail() {
     function editTrail() {
         if(editButton) {
             return (
-                <form onSubmit={handleSubmit}>
-                    <textarea 
-                        className="description"
-                        type="text" 
-                        value={tempDescription}
-                        onChange={(e) => setTempDescription(e.target.value)}
-                    />
-                    <button type="submit">Save</button>
-                </form>
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <textarea 
+                            className="description"
+                            type="text" 
+                            value={tempDescription}
+                            onChange={(e) => setTempDescription(e.target.value)}
+                        />
+                        <button type="submit">Save</button>
+                    </form>
+                    {errorList}
+                </div>
             )
         }
         else {
@@ -84,8 +88,16 @@ function Trail() {
             },
         })
         .then((r) => r.json())
-        //I have to add error cheking 
-        .then((updatedTrail) => frontEndPatch(updatedTrail, trail.id))
+        .then((updatedTrail) => {
+            if (!updatedTrail.errors) {
+                frontEndPatch(updatedTrail, trail.id)
+                setErrorList(null)
+            }
+            else {
+                const errorLis = updatedTrail.errors.map((e, index) => <li key={index}>{e}</li>)
+                setErrorList(errorLis)
+            }
+        })
     }
 
 
@@ -103,13 +115,16 @@ function Trail() {
         fetch(`/trails/${id}`,{
             method: "DELETE",
         })
-        .then((r) => r.json())
         .then(() => frontEndDelete(id))
+        .catch((error) => {
+            console.error("Error deleting trail:", error)
+        })
     }
 
     function frontEndDelete(id) {
         const updatedTrails = trails.filter((trail) => trail.id !== id)
-        setTrails(...updatedTrails)
+        setTrails(updatedTrails)
+        navigate('/')
     }
 
     if (loggedIn) {

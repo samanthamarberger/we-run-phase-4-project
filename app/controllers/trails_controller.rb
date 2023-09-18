@@ -27,7 +27,7 @@ class TrailsController < ApplicationController
 
     def update
         trail = Trail.find_by(id: params[:id])
-        trail.update(trail_params)
+        trail.update(update_trail_params)
         if trail.valid?
             render json: trail, status: :accepted
         else
@@ -37,8 +37,12 @@ class TrailsController < ApplicationController
 
     def destroy
         trail = Trail.find_by(id: params[:id])
-        trail.destroy
-        head :no_content
+        if trail
+            trail.destroy
+            head :no_content
+        else
+            render json: { errors: "Trail not found" }, status: :not_found
+        end
     end
 
     private
@@ -49,6 +53,10 @@ class TrailsController < ApplicationController
 
     def trail_params
         params.permit(:trail_name, :description, :location, :difficulty, :trail_image)
+    end
+
+    def update_trail_params
+        params.permit(:description)
     end
 
     def authorize
