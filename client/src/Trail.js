@@ -105,11 +105,14 @@ function Trail() {
         //Isn't being updated until refresh
         setTrails((prevTrails) => prevTrails.map((trail) => {
             if (trail.id === id) {
+                // console.log(`updatedTrail: ${updatedTrail.id}`)
                 return updatedTrail
             }
+            // console.log(trail.id)
             return trail 
         }))
     }
+    // console.log(trails)
 
     function deleteTrail(id) {
         fetch(`/trails/${id}`,{

@@ -9,7 +9,7 @@ function Profile() {
         return(
             <div>
                 <h1>{user.username}'s Profile</h1>
-                <img src={user.user_photo} alr={user.username}/>
+                <img src={user.user_photo} alt={user.username}/>
                 <p>{user.bio}</p>
                 <p>{user.email}</p>
             </div>

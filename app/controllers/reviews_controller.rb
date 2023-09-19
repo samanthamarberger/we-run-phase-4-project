@@ -1,5 +1,4 @@
 class ReviewsController < ApplicationController
-    # before_action :authorize
 
     def index 
         reviews = current_user.reviews.all
@@ -30,9 +29,5 @@ class ReviewsController < ApplicationController
 
     def review_params
         params.permit(:rating, :review, :trail_id)
-    end
-
-    def authorize
-        return render json: {error: "Not authorized"}, status: :unauthorized unless session.include? :user_id
     end
 end
