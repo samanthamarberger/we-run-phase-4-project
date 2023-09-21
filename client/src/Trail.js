@@ -4,9 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Reviews from "./Reviews";
 
 function Trail() {
-    const [trail, setTrail] = useState({
-        reviews: []
-    })
 
     const params = useParams()
     const { loggedIn, trails, setTrails } = useContext(UserContext)
@@ -14,29 +11,33 @@ function Trail() {
     const [errorList, setErrorList] = useState([])
     const [tempDescription, setTempDescription] = useState('')
     const navigate = useNavigate()
-    
+    const [showContent, setShowContent] = useState(false)
 
-    useEffect(() => { 
-        fetch(`/trails/${params.id}`)
-        //Something is wrong with this error checking: not producing any errors
-        .then((r) => r.json())
-        .then ((trail) => {
-            // console.log(trail.errors)
-            if(!trail.errors){
-                setTrail(trail)
-                setTempDescription(trail.description)
-                setErrorList([])
-            }
-            else {
-                const errorLis = trail.errors.map((e, index) => <li key={index}>{e}</li>)
-                // console.log(errorLis)
-                setErrorList([errorLis])
-            }
-        })
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowContent(true);
+        }, 3000)
+        return () => clearTimeout(timer)
     }, [])
 
+    const trail = trails.find((tr) => tr.id == params.id)
+    if (!trail) {
+        return (
+            <div>
+                <h2>loading...</h2>
+                {showContent && (
+                    <p>If the page hasn't loaded navigate back to the trails page and pick a trail from there</p>
+                )}
+            </div>
+        )
+    }
+
+    // useEffect(() => {
+    //     setTempDescription(trail.description)
+    // },[]) 
+
     function getButton() {
-        if(editButton) {
+        if (editButton) {
             return null
         }
         else {
@@ -49,20 +50,20 @@ function Trail() {
         }
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault()
         patchTrail(trail)
         setEditButton(false)
     }
 
     function editTrail() {
-        if(editButton) {
+        if (editButton) {
             return (
                 <div>
                     <form onSubmit={handleSubmit}>
-                        <textarea 
+                        <textarea
                             className="description"
-                            type="text" 
+                            type="text"
                             value={tempDescription}
                             onChange={(e) => setTempDescription(e.target.value)}
                         />
@@ -87,41 +88,38 @@ function Trail() {
                 "Content-Type": "application/json",
             },
         })
-        .then((r) => r.json())
-        .then((updatedTrail) => {
-            if (!updatedTrail.errors) {
-                frontEndPatch(updatedTrail, trail.id)
-                setErrorList(null)
-            }
-            else {
-                const errorLis = updatedTrail.errors.map((e, index) => <li key={index}>{e}</li>)
-                setErrorList(errorLis)
-            }
-        })
+            .then((r) => r.json())
+            .then((updatedTrail) => {
+                if (!updatedTrail.errors) {
+                    frontEndPatch(updatedTrail, trail.id)
+                    setErrorList(null)
+                }
+                else {
+                    setErrorList(updatedTrail.errors.map((error, index) => <li key={index} style={{ color: 'red' }}>{error}</li>))
+                }
+            })
     }
-
 
     function frontEndPatch(updatedTrail, id) {
-        //Isn't being updated until refresh
-        setTrails((prevTrails) => prevTrails.map((trail) => {
+        const updatedTrails = trails.map((trail) => {
             if (trail.id === id) {
-                // console.log(`updatedTrail: ${updatedTrail.id}`)
                 return updatedTrail
             }
-            // console.log(trail.id)
-            return trail 
-        }))
+            else {
+                return trail
+            }
+        })
+        setTrails(updatedTrails)
     }
-    // console.log(trails)
 
     function deleteTrail(id) {
-        fetch(`/trails/${id}`,{
+        fetch(`/trails/${id}`, {
             method: "DELETE",
         })
-        .then(() => frontEndDelete(id))
-        .catch((error) => {
-            console.error("Error deleting trail:", error)
-        })
+            .then(() => frontEndDelete(id))
+            .catch((error) => {
+                console.error("Error deleting trail:", error)
+            })
     }
 
     function frontEndDelete(id) {
@@ -131,26 +129,23 @@ function Trail() {
     }
 
     if (loggedIn) {
-        if (trail.errors) {
-            return {errorList}
-        }
-        else {
-            return (
-                <div>
-                    <br />
-                    <h2>{trail.trail_name}</h2>
-                    <img src={trail.trail_image} alt={trail.trail_name}/>
-                    {editTrail()}
-                    {getButton()}
-                    <p>{trail.location}</p>
-                    <p>Difficulty: {trail.difficulty}/5</p>
-                    <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
-                    <hr/>
-                    <h3>Reviews:</h3>
-                    <Reviews trail={trail} onSetTrail={setTrail}/>
-                </div>
-            )
-        }
+        return (
+            <div>
+                <br />
+                <h2>{trail.trail_name}</h2>
+                <img src={trail.trail_image} alt={trail.trail_name} />
+                <p>Description:</p>
+                {editTrail()}
+                {getButton()}
+                {errorList}
+                <p>Location: {trail.location}</p>
+                <p>Difficulty: {trail.difficulty}/5</p>
+                <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
+                <hr />
+                <h3>Reviews:</h3>
+                <Reviews trail={trail} />
+            </div>
+        )
     }
     else {
         return (

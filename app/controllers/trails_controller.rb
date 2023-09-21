@@ -21,7 +21,7 @@ class TrailsController < ApplicationController
         if trail
             render json: trail, status: :ok
         else
-            render json: { errors: "Not found" }, status: :not_found
+            render json: { error: "Trail not found" }, status: :not_found
         end
     end
 
@@ -41,7 +41,7 @@ class TrailsController < ApplicationController
             trail.destroy
             head :no_content
         else
-            render json: { errors: "Trail not found" }, status: :not_found
+            render json: { error: "Trail not found" }, status: :not_found
         end
     end
 
