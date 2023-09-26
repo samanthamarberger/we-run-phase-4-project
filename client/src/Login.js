@@ -21,14 +21,15 @@ function Login() {
         })
             .then(r => r.json())
             .then(user => {
-                if(!user.errors){
+                console.log(user)
+                if(!user.error){
                     login(user)
                     navigate('/')
                 }
                 else {
                     setUsername("")
                     setPassword("")
-                    const errorLis = user.errors.map((e, index) => <li key={index}>{e}</li>)
+                    const errorLis = <li>{user.error}</li>
                     setErrorList(errorLis)
                 }
             })

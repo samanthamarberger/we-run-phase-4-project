@@ -30,24 +30,28 @@ function UserProvider({ children }) {
         fetch('/me')
             .then(r => r.json())
             .then((userData) => {
-                if (!userData.errors) {
+                if (!userData.error) {
                     setUser(userData)
                     fetchTrails()
                     setLoggedIn(true)
                 }
                 else {
-                    console.log(userData.errors)   
+                    console.log(userData.error)  
                 }
             })
-
     }, [])
 
     const fetchTrails = () => {
         fetch('/trails')
-        //would this one need error handling since its taken care of in the Trails.js file?
             .then(r => r.json())
             .then(trails => {
-                setTrails(trails)
+                // console.log(trails)
+                if (!trails.errors) {
+                    setTrails(trails)
+                }
+                else {
+                    console.log(trails.errors)
+                }
             })
     }
 
@@ -69,6 +73,8 @@ function UserProvider({ children }) {
                 }
             })
     }
+    console.log(loggedIn)
+    
 
     return (
         <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, setTrails, addTrail, errorList }}>

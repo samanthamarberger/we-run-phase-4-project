@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :authorize
 
     #signup
     def create 
@@ -16,7 +17,7 @@ class UsersController < ApplicationController
         if user
             render json: user, status: :ok
         else
-            render json: { errors: "Not Authorized" }, status: :unauthorized
+            render json: { error: "Not Authorized" }, status: :unauthorized
         end
     end
 
