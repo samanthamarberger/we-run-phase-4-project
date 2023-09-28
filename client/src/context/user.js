@@ -36,7 +36,7 @@ function UserProvider({ children }) {
                     setLoggedIn(true)
                 }
                 else {
-                    console.log(userData.error)  
+                    console.log(userData.error)
                 }
             })
     }, [])
@@ -73,11 +73,25 @@ function UserProvider({ children }) {
                 }
             })
     }
-    console.log(loggedIn)
-    
+
+
+    function frontEndAddReview(newReview, trail) {
+        const updatedTrails = trails.map((tr) => {
+            if (trail.id === tr.id) {
+                tr.reviews.push(newReview)
+                return tr
+            }
+            else {
+                return tr
+            }
+        })
+        setTrails(updatedTrails)
+    }
+
+
 
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, setTrails, addTrail, errorList }}>
+        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, setTrails, addTrail, errorList, frontEndAddReview }}>
             {children}
         </UserContext.Provider>
     );

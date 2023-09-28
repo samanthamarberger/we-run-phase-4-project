@@ -21,7 +21,6 @@ function Login() {
         })
             .then(r => r.json())
             .then(user => {
-                console.log(user)
                 if(!user.error){
                     login(user)
                     navigate('/')

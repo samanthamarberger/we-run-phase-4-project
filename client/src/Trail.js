@@ -10,6 +10,7 @@ function Trail() {
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
     const [tempDescription, setTempDescription] = useState('')
+    // const [trail, setTrail] = useState('')
     const navigate = useNavigate()
     const [showContent, setShowContent] = useState(false)
 
@@ -19,8 +20,10 @@ function Trail() {
         }, 3000)
         return () => clearTimeout(timer)
     }, [])
+    
+    const trail = trails.find((tr) => (tr.id === parseInt(params.id)))
+    // setTrail(currentTrail)     
 
-    const trail = trails.find((tr) => tr.id == params.id)
     if (!trail) {
         return (
             <div>
@@ -143,7 +146,7 @@ function Trail() {
                 <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
                 <hr />
                 <h3>Reviews:</h3>
-                <Reviews trail={trail} />
+                <Reviews trail={trail}/>
             </div>
         )
     }
