@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # add the only keywords
   resources :trails do
-    resources :reviews, only: [ :create, :index ]
+    resources :reviews, only: [ :create, :index, :update, :show, :destroy ]
   end
   
   # Routing logic: fallback requests for React Router.

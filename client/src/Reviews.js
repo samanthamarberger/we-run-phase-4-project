@@ -10,7 +10,7 @@ function Reviews({ trail }) {
     const [reviewFormFlag, setReviewFormFlag] = useState(false)
     const [errorList, setErrorList] = useState(null)
 
-    const reviews = trail.reviews.map((review) => (<Review key={review.id} review={review}/>))
+    const reviews = trail.reviews.map((review) => (<Review key={review.id} review={review} trail={trail} />))
 
     const addReviewFlag = () => {
         setReviewFormFlag(!reviewFormFlag)
