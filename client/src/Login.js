@@ -28,7 +28,7 @@ function Login() {
                 else {
                     setUsername("")
                     setPassword("")
-                    const errorLis = <li>{user.error}</li>
+                    const errorLis = <li style={{ color: 'red' }}>{user.error}</li>
                     setErrorList(errorLis)
                 }
             })

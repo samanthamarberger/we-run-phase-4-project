@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
-  get '/trails/:id', to: 'trails#show'
-  # get '/trails/:id/reviews', to: 'reviews#index'
 
   # add the only keywords
   resources :trails do

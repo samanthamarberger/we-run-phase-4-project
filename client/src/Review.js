@@ -45,7 +45,7 @@ function Review({ review, trail }) {
                             className="review"
                             type="text"
                             value={tempReview}
-                            onChange={(e) => { setTempReview(e.target.value) }}
+                            onChange={(e) => setTempReview(e.target.value)}
                         />
                         <div>-{review.username}</div>
                         <button type="submit">Save</button>
@@ -66,8 +66,6 @@ function Review({ review, trail }) {
     }
 
     function patchReview() {
-        console.log("trail:", trail)
-        console.log("review:", review)
         fetch(`${trail.id}/reviews/${review.id}`, {
             method: "PATCH",
             body: JSON.stringify({
@@ -80,20 +78,23 @@ function Review({ review, trail }) {
         })
             .then((r) => r.json())
             .then((updatedReview) => {
-                // console.log(updatedReview)
-                // Not getting this review
                 if (!updatedReview.errors) {
                     if(!updatedReview.error) {
                         frontEndPatch(updatedReview, review.id, trail.id)
                         setErrorList(null)
                     }
-                    else setErrorList(...errorList, updatedReview.error)
+                    else {
+                        const error = <li style={{ color: 'red' }}>{updatedReview.error}</li>
+                        // setErrorList(...errorList, error)
+                        setErrorList([error])
+                    }
                 }
                 else {
-                    const errors = updatedReview.errors.map((error, index) => <li key={index} style={{ color: 'red' }}>{error}</li>)
-                    setErrorList(...errorList, errors)
+                    const errors = updatedReview.errors.map((error, index) =>  (
+                        <li key={index} style={{ color: 'red' }}>{error}</li>
+                    ))
+                    setErrorList(errors)
                 }
-
             })
     }
 

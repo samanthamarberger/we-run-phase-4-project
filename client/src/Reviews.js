@@ -38,7 +38,6 @@ function Reviews({ trail }) {
             },
             body: JSON.stringify(newReview),
         })
-        // Program doesn't know what trail it's on when a new review is added
         .then((r) => r.json())
         .then((newReview) => {
             if (!newReview.errors) {

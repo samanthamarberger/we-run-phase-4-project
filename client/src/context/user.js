@@ -68,7 +68,7 @@ function UserProvider({ children }) {
                     setErrorList(null)
                 }
                 else {
-                    const errorLis = trail.errors.map((e, index) => <li key={index}>{e}</li>)
+                    const errorLis = trail.errors.map((e, index) => <li key={index} style={{ color: 'red' }}>{e}</li>)
                     setErrorList(errorLis)
                 }
             })

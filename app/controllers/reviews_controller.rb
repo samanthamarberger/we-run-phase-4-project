@@ -1,12 +1,18 @@
 class ReviewsController < ApplicationController
 
     def index 
-        reviews = current_user.reviews.all
-        render json: reviews, status: :ok
+        trail = current_trail
+
+        if trail
+            reviews = trail.reviews
+            render json: reviews, status: :ok
+          else
+            render json: { error: 'Trail not found' }, status: :not_found
+          end
     end
 
     def show
-        review = current_user.reviews.find_by(id: params[:id]) 
+        review = current_trail.reviews.find_by(id: params[:id]) 
         if review
             render json: review, status: :ok
         else
@@ -24,10 +30,12 @@ class ReviewsController < ApplicationController
         end
     end
 
+
+    # Pretty sure error is in here somewhere 
     def update
-        review = current_user.reviews.find_by(id: params[:id]) 
-         if review.valid?
-            if review.username == current_user.username
+        review = current_trail.reviews.find_by(id: params[:id]) 
+        if review.valid?
+            if review.user.username == current_user.username
                 review.update(review_params)
                 if review.valid?
                     render json: review, status: :accepted
@@ -35,7 +43,7 @@ class ReviewsController < ApplicationController
                     render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
                 end
             else
-                render json: { error: 'You do not have permission to update this review'}, status: :unauthorized
+                render json: { error: 'You do not have permission to update this review' }, status: :unauthorized
             end
         else
             render json: { error: 'Review not found' }, status: :not_found
@@ -43,6 +51,13 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
+        review = current_trail.reviewss.find_by(id: params[:id])
+        if review.user.username == current_user.username
+            review.destroy
+            head :no_content
+        else 
+            render json: { error: 'You do not have permission to delete this review' }, status: :unauthorized
+        end
     end
 
     private
@@ -52,7 +67,7 @@ class ReviewsController < ApplicationController
     end
 
     def current_trail
-        Trail.find_by(id: params[:id])
+        Trail.find_by(id: params[:trail_id])
     end
 
     def review_params
