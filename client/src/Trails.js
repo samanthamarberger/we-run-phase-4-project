@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react"
-import { Route, useParams } from "react-router-dom"
 import { UserContext } from "./context/user"
 import TrailForm from "./TrailForm"
 import TrailLink from "./TrailLink"
@@ -8,7 +7,6 @@ function Trails() {
 
     const { trails, loggedIn, errorList } = useContext(UserContext)
     const [formFlag, setFormFlag] = useState(false)
-    const params = useParams()
 
     const addTrailFlag = () => {
         setFormFlag(!formFlag)

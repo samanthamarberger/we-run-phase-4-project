@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "./context/user"
+import React, { useState } from "react";
 
 function ReviewForm({ onAddReview, onAddReviewFlag, trail }) {
     const [rating, setRating] = useState("")

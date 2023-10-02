@@ -113,15 +113,58 @@ function Review({ review, trail }) {
         });
         setTrails(updatedTrails)
     }
-    return (
-        <div>
-            {editReview()}
-            {getButton()}
-            <br />
-            {errorList}
-            <hr />
-        </div>
-    )
+
+    function deleteReview() {
+        const reviewId = review.id
+        fetch(`${trail.id}/reviews/${review.id}`, {
+            method: "DELETE",
+        })
+            .then((r) => {
+                if (r.status === 204) {
+                    frontEndDelete(reviewId, trail.id)
+                } 
+                else if (r.status === 401) {
+                    const error = <li style={{ color: 'red' }}>error: You do not have permission to delete this review</li>
+                    setErrorList(error)
+                }
+                else {
+                    const error = <li style={{ color: 'red' }}>error: An error occured while deleting this review</li>
+                    setErrorList(error)
+                }
+            })
+            .catch ((error) => {
+                console.log("Error deleting review:", error)
+            })
+    }
+
+    function frontEndDelete(rid, tid) {
+        const updatedTrails = trails.map((trail) => {
+            if (trail.id === tid) {
+                const updatedReviews = trail.reviews.filter((review) => review.id !== rid)
+                return {...trail, reviews: updatedReviews}
+            }
+            return trail
+        }) 
+        setTrails(updatedTrails)
+    }
+
+    if (loggedIn) {
+        return (
+            <div>
+                {editReview()}
+                {getButton()}
+                <br />
+                <button className="deleteButton" onClick={() => deleteReview()}>Delete Review</button>
+                {errorList}
+                <hr />
+            </div>
+        )
+    }
+    else {
+        return (
+            <h3> Not Authorized - Please Signup or Login </h3>
+        )
+    }
 }
 
 export default Review

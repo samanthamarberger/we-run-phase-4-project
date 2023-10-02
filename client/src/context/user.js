@@ -75,23 +75,12 @@ function UserProvider({ children }) {
     }
 
 
-    function frontEndAddReview(newReview, trail) {
-        const updatedTrails = trails.map((tr) => {
-            if (trail.id === tr.id) {
-                tr.reviews.push(newReview)
-                return tr
-            }
-            else {
-                return tr
-            }
-        })
-        setTrails(updatedTrails)
-    }
+ 
 
 
 
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, setTrails, addTrail, errorList, frontEndAddReview }}>
+        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, trails, setTrails, addTrail, errorList }}>
             {children}
         </UserContext.Provider>
     );

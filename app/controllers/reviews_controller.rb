@@ -51,7 +51,7 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
-        review = current_trail.reviewss.find_by(id: params[:id])
+        review = current_trail.reviews.find_by(id: params[:id])
         if review.user.username == current_user.username
             review.destroy
             head :no_content
