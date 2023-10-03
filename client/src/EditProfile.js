@@ -16,7 +16,7 @@ function EditProfile({ setEditForm, onPatchProfile }) {
         setTempEmail("")
         setTempBio("")
         setTempImage("")
-    }
+    } 
     return (
         <div>
             <form onSubmit={handleSubmit}>

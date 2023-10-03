@@ -19,22 +19,26 @@ function NavBar() {
 
     if (loggedIn){
         return (
-            <div>
-                <h1>Hello {user.username}</h1>
+            <header>
+                <img src="https://t3.ftcdn.net/jpg/01/13/99/88/360_F_113998820_PyE7Xqaaruarcp1VZFckSpbUG9jFVaol.jpg"/>
+                {/* <h1>Hello {user.username}</h1> */}
                 <button onClick={logoutUser}>Logout</button>
                 <NavLink to='/trails'>
                     <button>Trails</button>
                 </NavLink>
                 <NavLink to='/profile'>
-                    <button>User Profile</button>
+                    <button>My Profile</button>
                 </NavLink>
-                <hr/>
-            </div>
+                <NavLink to='/'>
+                    <button>Home</button>
+                </NavLink>
+            </header>
         )
     } 
     else {
         return (
-            <div>
+            <header>
+                <img src="https://t3.ftcdn.net/jpg/01/13/99/88/360_F_113998820_PyE7Xqaaruarcp1VZFckSpbUG9jFVaol.jpg"/>
                 <NavLink to='/login'>
                     <button>Login</button>
                 </NavLink>
@@ -44,8 +48,7 @@ function NavBar() {
                 <NavLink to='/'>
                     <button>Home</button>
                 </NavLink>
-                <hr/>
-            </div>
+            </header>
         )
     }
 }

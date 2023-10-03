@@ -57,9 +57,9 @@ function Review({ review, trail }) {
         else {
             return (
                 <div>
-                    <h2 className="rating">{review.rating}/5</h2>
+                    <h3 className="rating">{review.rating}/5</h3>
                     <p className="review">{review.review}</p>
-                    <div>-{review.username}</div>
+                    <p>-{review.username}</p>
                 </div>
             )
         }
@@ -153,7 +153,6 @@ function Review({ review, trail }) {
             <div>
                 {editReview()}
                 {getButton()}
-                <br />
                 <button className="deleteButton" onClick={() => deleteReview()}>Delete Review</button>
                 {errorList}
                 <hr />

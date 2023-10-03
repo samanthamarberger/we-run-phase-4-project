@@ -51,7 +51,7 @@ function Reviews({ trail }) {
 
     if (loggedIn) {
         return (
-            <div>
+            <div className="Reviews">
                 {reviews}
                 {(reviewFormFlag)
                 ?

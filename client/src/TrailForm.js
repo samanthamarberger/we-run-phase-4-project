@@ -27,6 +27,7 @@ function TrailForm({ addTrailFlag }) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <h1>Add a new trail...</h1>
                 <label>Trail Name:</label>
                 <input
                     type="text"

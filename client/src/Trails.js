@@ -15,8 +15,8 @@ function Trails() {
     if (loggedIn) {
         const trailsList = trails.map(trail =><TrailLink key={trail.id} trail={trail}/> )
         return (
-            <div>
-                <h3> TRAILS: </h3>
+            <div className="Trails">
+                <h1> TRAILS: </h1>
                 <br/>
                 {trailsList}
                 <br/>

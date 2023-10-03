@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     def destroy
         user = User.find_by(id: session[:user_id])
         if user
+            user.reviews.destroy_all
             user.destroy
             head :no_content
         else

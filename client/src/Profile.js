@@ -97,16 +97,14 @@ function Profile() {
 
     if (loggedIn){
         return(
-            <div>
+            <div className="Profile">
                 <div>
                     <h1>{user.username}'s Profile</h1>
                     <img src={user.user_photo} alt={user.username}/>
-                    <p>{user.bio}</p>
-                    <p>{user.email}</p>
-                    <hr />
+                    <h3>{user.bio}</h3>
+                    <h3>{user.email}</h3>
                     {errorList}
                     {canEdit()}
-                    <br />
                     <button onClick={() => handleDelete()}>Remove Account</button>
                 </div>
                 { dialog.isLoading && <Dialog onDialog={areUSureDelete} message={dialog.message} /> }

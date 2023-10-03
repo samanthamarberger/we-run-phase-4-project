@@ -7,10 +7,11 @@ function Trail() {
 
     const params = useParams()
     const { loggedIn, trails, setTrails } = useContext(UserContext)
+    const trail = trails.find((tr) => (tr.id === parseInt(params.id)))
+
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
     const [tempDescription, setTempDescription] = useState('')
-    // const [trail, setTrail] = useState('')
     const navigate = useNavigate()
     const [showContent, setShowContent] = useState(false)
 
@@ -19,10 +20,13 @@ function Trail() {
             setShowContent(true);
         }, 3000)
         return () => clearTimeout(timer)
-    }, [])
-    
-    const trail = trails.find((tr) => (tr.id === parseInt(params.id)))
-    // setTrail(currentTrail)     
+    }, []) 
+
+    useEffect(() => {
+        if (trail) {
+          setTempDescription(trail.description);
+        }
+      }, [trail]);
 
     if (!trail) {
         return (
@@ -34,10 +38,6 @@ function Trail() {
             </div>
         )
     }
-
-    // useEffect(() => {
-    //     setTempDescription(trail.description)
-    // },[]) 
 
     function getButton() {
         if (editButton) {
@@ -133,11 +133,10 @@ function Trail() {
 
     if (loggedIn) {
         return (
-            <div>
+            <div className="Trail">
                 <br />
-                <h2>{trail.trail_name}</h2>
+                <h1>{trail.trail_name}</h1>
                 <img src={trail.trail_image} alt={trail.trail_name} />
-                <p>Description:</p>
                 {editTrail()}
                 {getButton()}
                 {errorList}
@@ -145,7 +144,7 @@ function Trail() {
                 <p>Difficulty: {trail.difficulty}/5</p>
                 <button className="deleteButton" onClick={() => deleteTrail(trail.id)}>Delete Trail</button>
                 <hr />
-                <h3>Reviews:</h3>
+                <h1>Reviews:</h1>
                 <Reviews trail={trail}/>
             </div>
         )
