@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
   patch '/me', to: 'users#update'
+  delete '/me', to: 'users#destroy'
 
   # add the only keywords
   resources :trails do
