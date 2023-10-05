@@ -60,3 +60,5 @@ My application utilizes Authorization and Authentication to secure the user data
 - The use of cookies
 
 There is full CRUD capability for users, trails, and reviews in the Rails backend. 
+
+## Demo
