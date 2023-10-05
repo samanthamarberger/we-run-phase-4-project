@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/user";
 
 function NavBar() {
-    const{user, logout, loggedIn} = useContext(UserContext)
+    const{ logout, loggedIn } = useContext(UserContext)
     const navigate = useNavigate()
 
     const logoutUser = () => {
@@ -20,7 +20,7 @@ function NavBar() {
     if (loggedIn){
         return (
             <header>
-                <img src="https://t3.ftcdn.net/jpg/01/13/99/88/360_F_113998820_PyE7Xqaaruarcp1VZFckSpbUG9jFVaol.jpg"/>
+                <img alt="trail runners background" src="https://t3.ftcdn.net/jpg/01/13/99/88/360_F_113998820_PyE7Xqaaruarcp1VZFckSpbUG9jFVaol.jpg"/>
                 {/* <h1>Hello {user.username}</h1> */}
                 <button onClick={logoutUser}>Logout</button>
                 <NavLink to='/trails'>
@@ -38,7 +38,7 @@ function NavBar() {
     else {
         return (
             <header>
-                <img src="https://t3.ftcdn.net/jpg/01/13/99/88/360_F_113998820_PyE7Xqaaruarcp1VZFckSpbUG9jFVaol.jpg"/>
+                <img alt="trail runners background" src="https://t3.ftcdn.net/jpg/01/13/99/88/360_F_113998820_PyE7Xqaaruarcp1VZFckSpbUG9jFVaol.jpg"/>
                 <NavLink to='/login'>
                     <button>Login</button>
                 </NavLink>

@@ -42,15 +42,6 @@ function Signup() {
         })
     }
 
-    // function clearInputs() {
-    //     setUsername("")
-    //     setEmail("")
-    //     setPassword("")
-    //     setPasswordConfirmation("")
-    //     setBio("")
-    //     setPhoto("")
-    // }
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
