@@ -3,9 +3,9 @@
 ## Description
 
 This web application was created for the purpose of allowing runners to post the trails they run with other users. 
-The users have access to view all trails posted and comment on other trails. This Rails/ React, and JavaScript application 
+The users have access to view all trails posted and comment on other trails. This Rails/ React application 
 includes the ability to view, edit, add, and delete trails, reviews, and users. Take a look at my application 
-and play around with some of this functionalityu!
+and play around with some of this functionality!
 
 ## Getting Started
 

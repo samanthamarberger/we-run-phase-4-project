@@ -30,8 +30,6 @@ class ReviewsController < ApplicationController
         end
     end
 
-
-    #Would it be more clean to try to utilize Authorization skip_before_action here? 
     def update
         review = current_trail.reviews.find_by(id: params[:id]) 
         if review.valid?

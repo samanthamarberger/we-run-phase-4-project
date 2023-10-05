@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   delete '/me', to: 'users#destroy'
 
   # add the only keywords
-  resources :trails do
-    resources :reviews, only: [ :create, :index, :update, :show, :destroy ]
+  resources :trails, only: [ :index, :show, :create, :update, :destroy ] do
+    resources :reviews, only: [ :index, :show, :create, :update, :destroy ]
   end
 
   resources :users, only: [:update] 
