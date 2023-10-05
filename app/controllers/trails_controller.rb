@@ -3,6 +3,7 @@ class TrailsController < ApplicationController
 
     #make these based off of the TRAILS not the user because they are available to all to see
     def index 
+        #byebug
         trails = Trail.all
         render json: trails, status: :ok
     end
