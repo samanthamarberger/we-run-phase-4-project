@@ -1,9 +1,7 @@
 class TrailsController < ApplicationController
-    before_action :authorize
 
     #make these based off of the TRAILS not the user because they are available to all to see
     def index 
-        #byebug
         trails = Trail.all
         render json: trails, status: :ok
     end
@@ -58,9 +56,5 @@ class TrailsController < ApplicationController
 
     def update_trail_params
         params.permit(:description)
-    end
-
-    def authorize
-        return render json: {error: "Not authorized"}, status: :unauthorized unless session.include? :user_id
     end
 end
