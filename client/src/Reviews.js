@@ -4,7 +4,7 @@ import Review from "./Review";
 import ReviewForm from "./ReviewForm";
 
 function Reviews({ trail }) {
-    const { loggedIn, setTrails, trails } = useContext(UserContext)
+    const { loggedIn, setTrails, trails, user, setUser } = useContext(UserContext)
     const [reviewFormFlag, setReviewFormFlag] = useState(false)
     const [errorList, setErrorList] = useState(null)
 
@@ -37,6 +37,10 @@ function Reviews({ trail }) {
     }
 
     function frontEndAddReview(newReview, trail) {
+        if (!user.trails.includes(trail)) {
+            user.trails.push(trail)
+            setUser(user)
+        }
         const updatedTrails = trails.map((tr) => {
             if (trail.id === tr.id) {
                 tr.reviews.push(newReview)

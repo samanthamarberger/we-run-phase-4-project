@@ -3,6 +3,7 @@ import { UserContext } from "./context/user";
 import { useNavigate } from "react-router-dom"
 import EditProfile from "./EditProfile";
 import Dialog from "./Dialog";
+import UserTrails from "./UserTrails";
 
 function Profile() {
     const { user, setUser, loggedIn, logout } = useContext(UserContext)
@@ -94,7 +95,7 @@ function Profile() {
     function handleDelete() {
         handleDialog('Are you sure you would like to remove your account?', true)
     }
-
+    
     if (loggedIn){
         return(
             <div className="Profile">
@@ -103,6 +104,12 @@ function Profile() {
                     <img src={user.user_photo} alt={user.username}/>
                     <h3>{user.bio}</h3>
                     <h3>{user.email}</h3>
+                    <h2 style={{ fontSize: "40px", fontWeight: "lighter" }}>Trails I have done:</h2>
+                    {user.trails ? (user.trails.map((trail) => (
+                        <UserTrails key={trail.id} trail={trail} />
+                    ))
+                        ) : ( <p>No trails available</p> )}
+                    <br />
                     {errorList}
                     {canEdit()}
                     <button onClick={() => handleDelete()}>Remove Account</button>

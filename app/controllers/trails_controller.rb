@@ -15,15 +15,6 @@ class TrailsController < ApplicationController
         end
     end
 
-    def show
-        trail = Trail.find_by(id: params[:id])
-        if trail
-            render json: trail, status: :ok
-        else
-            render json: { error: "Trail not found" }, status: :not_found
-        end
-    end
-
     def update
         trail = Trail.find_by(id: params[:id])
         trail.update(update_trail_params)
@@ -45,10 +36,6 @@ class TrailsController < ApplicationController
     end
 
     private
-
-    def current_user
-        User.find_by(id: session[:user_id])
-    end
 
     def trail_params
         params.permit(:trail_name, :description, :location, :difficulty, :trail_image)

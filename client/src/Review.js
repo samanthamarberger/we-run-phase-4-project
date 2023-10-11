@@ -3,7 +3,7 @@ import { UserContext } from "./context/user"
 
 function Review({ review, trail }) {
 
-    const { loggedIn, trails, setTrails } = useContext(UserContext)
+    const { loggedIn, trails, setTrails, user } = useContext(UserContext)
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
     const [tempRating, setTempRating] = useState(review.rating)
@@ -15,10 +15,12 @@ function Review({ review, trail }) {
         }
         else {
             return (
-                <button className="editButton"
-                    onClick={() => setEditButton(true)}>
-                    Edit Review
-                </button>
+                user.id === review.user_id ? (
+                    <button className="editButton"
+                        onClick={() => setEditButton(true)}>
+                        Edit Review
+                    </button>
+            ) : null 
             )
         }
     }
@@ -85,7 +87,6 @@ function Review({ review, trail }) {
                     }
                     else {
                         const error = <li style={{ color: 'red' }}>{updatedReview.error}</li>
-                        // setErrorList(...errorList, error)
                         setErrorList([error])
                     }
                 }
@@ -153,7 +154,11 @@ function Review({ review, trail }) {
             <div>
                 {editReview()}
                 {getButton()}
-                <button className="deleteButton" onClick={() => deleteReview()}>Delete Review</button>
+                {user.id === review.user_id ? (
+                    <button className="deleteButton" onClick={() => deleteReview()}>
+                    Delete Review
+                    </button>
+                ) : null}
                 {errorList}
                 <hr />
             </div>
