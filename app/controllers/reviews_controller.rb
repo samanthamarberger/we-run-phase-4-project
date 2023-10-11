@@ -2,7 +2,6 @@ class ReviewsController < ApplicationController
 
     def index 
         trail = current_trail
-
         if trail
             reviews = trail.reviews
             render json: reviews, status: :ok
@@ -57,6 +56,7 @@ class ReviewsController < ApplicationController
             render json: { error: 'You do not have permission to delete this review' }, status: :unauthorized
         end
     end
+
 
     private
     
