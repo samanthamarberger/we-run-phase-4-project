@@ -49,12 +49,13 @@ function Profile() {
         .then((r) => r.json())
         .then((profile) => {
             if (!profile.errors) {
-                setUser({
+                setUser((prevUser) => ({
+                    ...prevUser, 
                     username: profile.username,
                     email: profile.email,
                     bio: profile.bio,
-                    user_photo: profile.user_photo
-                })
+                    user_photo: profile.user_photo,
+                  }))
                 setErrorList(null)
             }
             else {
