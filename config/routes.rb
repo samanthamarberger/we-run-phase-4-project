@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [ :index, :show, :create, :update, :destroy ]
   end
 
-  resources :users, only: [:update] 
+  # resources :users, only: [:update] 
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
