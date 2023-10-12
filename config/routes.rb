@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 
 
   # add the only keywords
-  resources :trails, only: [ :index, :show, :create, :update, :destroy ] do
-    resources :reviews, only: [ :index, :show, :create, :update, :destroy ]
+  resources :trails, only: [ :index, :create, :update, :destroy ] do
+    resources :reviews, only: [ :create, :update, :destroy ]
   end
 
   # resources :users, only: [:update] 

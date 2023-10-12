@@ -3,7 +3,7 @@ import { UserContext } from "./context/user"
 
 function Review({ review, trail }) {
 
-    const { loggedIn, trails, setTrails, user } = useContext(UserContext)
+    const { loggedIn, trails, setTrails, user, setUser } = useContext(UserContext)
     const [editButton, setEditButton] = useState(false)
     const [errorList, setErrorList] = useState([])
     const [tempRating, setTempRating] = useState(review.rating)
@@ -20,7 +20,7 @@ function Review({ review, trail }) {
                         onClick={() => setEditButton(true)}>
                         Edit Review
                     </button>
-            ) : null 
+                ) : null
             )
         }
     }
@@ -81,7 +81,7 @@ function Review({ review, trail }) {
             .then((r) => r.json())
             .then((updatedReview) => {
                 if (!updatedReview.errors) {
-                    if(!updatedReview.error) {
+                    if (!updatedReview.error) {
                         frontEndPatch(updatedReview, review.id, trail.id)
                         setErrorList(null)
                     }
@@ -91,7 +91,7 @@ function Review({ review, trail }) {
                     }
                 }
                 else {
-                    const errors = updatedReview.errors.map((error, index) =>  (
+                    const errors = updatedReview.errors.map((error, index) => (
                         <li key={index} style={{ color: 'red' }}>{error}</li>
                     ))
                     setErrorList(errors)
@@ -122,8 +122,8 @@ function Review({ review, trail }) {
         })
             .then((r) => {
                 if (r.status === 204) {
-                    frontEndDelete(reviewId, trail.id)
-                } 
+                    frontEndDelete(reviewId, trail)
+                }
                 else if (r.status === 401) {
                     const error = <li style={{ color: 'red' }}>error: You do not have permission to delete this review</li>
                     setErrorList(error)
@@ -133,20 +133,36 @@ function Review({ review, trail }) {
                     setErrorList(error)
                 }
             })
-            .catch ((error) => {
+            .catch((error) => {
                 console.log("Error deleting review:", error)
             })
     }
 
-    function frontEndDelete(rid, tid) {
-        const updatedTrails = trails.map((trail) => {
-            if (trail.id === tid) {
-                const updatedReviews = trail.reviews.filter((review) => review.id !== rid)
-                return {...trail, reviews: updatedReviews}
+    function frontEndDelete(rid, trail) {
+        console.log("Trail ID:", trail.id);
+        console.log("User ID:", user.id);
+        console.log("Review ID:", rid);
+        console.log("User Trails Before:", user.trails);
+        
+        const userHasReviewForTrail = trails
+        .filter((t) => t.id === trail.id)
+        .some((t) => t.reviews.some((review) => review.user_id === user.id && review.id === rid))
+
+        if (!userHasReviewForTrail) {
+            user.trails = user.trails.filter((t) => t.id !== trail.id);
+            setUser(user)
+            console.log("User after:", user)
+        }
+
+        const updatedTrails = trails.map((t) => {
+            if (t.id === trail.id) {
+                const updatedReviews = t.reviews.filter((review) => review.id !== rid)
+                return { ...t, reviews: updatedReviews }
             }
-            return trail
-        }) 
+            return t
+        })
         setTrails(updatedTrails)
+        console.log("updated Trails:", updatedTrails)
     }
 
     if (loggedIn) {
@@ -156,7 +172,7 @@ function Review({ review, trail }) {
                 {getButton()}
                 {user.id === review.user_id ? (
                     <button className="deleteButton" onClick={() => deleteReview()}>
-                    Delete Review
+                        Delete Review
                     </button>
                 ) : null}
                 {errorList}
