@@ -139,29 +139,27 @@ function Review({ review, trail }) {
     }
 
     function frontEndDelete(rid, trail) {
-        console.log("Trail ID:", trail.id);
+        console.log("Trail ID:", trail);
         console.log("User ID:", user.id);
         console.log("Review ID:", rid);
         console.log("User Trails Before:", user.trails);
         
-        const userHasReviewForTrail = trails
-        .filter((t) => t.id === trail.id)
-        .some((t) => t.reviews.some((review) => review.user_id === user.id && review.id === rid))
-
-        if (!userHasReviewForTrail) {
-            user.trails = user.trails.filter((t) => t.id !== trail.id);
-            setUser(user)
-            console.log("User after:", user)
-        }
-
+        let changeUserState = true
         const updatedTrails = trails.map((t) => {
             if (t.id === trail.id) {
                 const updatedReviews = t.reviews.filter((review) => review.id !== rid)
+                // Look through the reviews for a review with an user_id that matches the user.id
+                changeUserState = !updatedReviews.some((r) => r.user_id === user.id)
                 return { ...t, reviews: updatedReviews }
             }
             return t
         })
         setTrails(updatedTrails)
+        if (changeUserState) {
+            const updatedUserTrails = user.trails = user.trails.filter((t) => t.id !== trail.id);
+            setUser({...user, trails: updatedUserTrails})
+            console.log("User after:", user)
+        }
         console.log("updated Trails:", updatedTrails)
     }
 

@@ -45,7 +45,6 @@ function UserProvider({ children }) {
         fetch('/trails')
             .then(r => r.json())
             .then(trails => {
-                // console.log(trails)
                 if (!trails.errors) {
                     setTrails(trails)
                 }
@@ -73,10 +72,6 @@ function UserProvider({ children }) {
                 }
             })
     }
-
-
- 
-
 
 
     return (
