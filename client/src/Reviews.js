@@ -38,8 +38,8 @@ function Reviews({ trail }) {
 
     function frontEndAddReview(newReview, trail) {
         if (!user.trails.includes(trail)) {
-            user.trails.push(trail)
-            setUser(user)
+            const updatedUserTrail = user.trails.push(trail)
+            setUser({...user, trails: updatedUserTrail})
         }
         const updatedTrails = trails.map((tr) => {
             if (trail.id === tr.id) {

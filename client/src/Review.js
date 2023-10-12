@@ -148,7 +148,6 @@ function Review({ review, trail }) {
         const updatedTrails = trails.map((t) => {
             if (t.id === trail.id) {
                 const updatedReviews = t.reviews.filter((review) => review.id !== rid)
-                // Look through the reviews for a review with an user_id that matches the user.id
                 changeUserState = !updatedReviews.some((r) => r.user_id === user.id)
                 return { ...t, reviews: updatedReviews }
             }
